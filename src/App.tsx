@@ -76,260 +76,137 @@ function App() {
   ];
 
   return (
-    <div ref={containerRef} className="bg-slate-950">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-           <motion.div
-  initial={{ opacity: 0, y: -20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{
-    duration: 0.8,  // = 800ms
-    delay:0.4,
-    
-  }}
-  className="text-xl font-bold text-white"
->
-  Anshul Gaur
-</motion.div>
-<div               className="flex gap-6"
->
+   <div ref={containerRef} className="bg-slate-950">
+  {/* 🌟 NAVBAR */}
+  <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800/50">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between items-center h-16">
+        {/* Logo */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-xl font-bold text-white"
+        >
+          Anshul Gaur
+        </motion.div>
 
-            
-              <motion.a    initial={{ opacity: 0, y: -20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{
-    duration: 1,  // = 800ms
-    
-  }} href="#about" className="ancor-class text-slate-300 hover:text-white transition-colors">About</motion.a>
-              <motion.a    initial={{ opacity: 0, y: -20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{
-    duration: 1.5,  // = 800ms
-    
-  }} href="#skills" className="ancor-class text-slate-300 hover:text-white transition-colors">Skills</motion.a>
-              <motion.a    initial={{ opacity: 0, y: -20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{
-    duration: 2,  // = 800ms
-    
-  }} href="#projects" className="ancor-class text-slate-300 hover:text-white transition-colors">Projects</motion.a>
-              <motion.a    initial={{ opacity: 0, y: -20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{
-    duration: 2.5,  // = 800ms
-    
-  }} href="#contact" className="ancor-class text-slate-300 hover:text-white transition-colors">Contact</motion.a>
-          </div>
-        </div>
-</div>
-      </nav>
-<section className="h-[300vh] relative">
-  <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-    <motion.div
-      style={{
-        scale: videoScale,
-        rotate: videoRotate,
-        y: videoY,
-        opacity: videoOpacity
-      }}
-      className="relative w-full max-w-7xl mx-auto px-4"
-    >
-      {/* FLEX CONTAINER FOR SIDE-BY-SIDE LAYOUT */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-        {/* LEFT SIDE: TEXT */}
-        <div className="flex-1 text-center md:text-left">
-          <div
-                 data-aos="fade-zoom-in"
-            data-aos-easing="ease-in-back"
-            data-aos-delay="300"
-            data-aos-offset="0"
-            data-aos-duration="3000"
-            
-            className="inline-block mb-4"
-          >
-            <span className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-sm font-medium">
-              Available for Freelance
-            </span>
-          </div>
-
-          <h1
-            data-aos="fade-zoom-in"
-            data-aos-easing="ease-in-back"
-            data-aos-delay="300"
-            data-aos-offset="0"
-            data-aos-duration="3000"
-            className="text-5xl md:text-7xl font-bold text-white mb-6"
-          >
-            Anshul Gaur
-            <span className="block text-3xl md:text-5xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent mt-4">
-              Full Stack Developer
-            </span>
-          </h1>
-
-          <p
-            data-aos="fade-zoom-in"
-            data-aos-easing="ease-in-back"
-            data-aos-delay="300"
-            data-aos-offset="0"
-            data-aos-duration="3000"
-            className="text-lg md:text-xl text-slate-300 max-w-md mb-12"
-          >
-            2+ years of experience building scalable web applications with MERN Stack
-          </p>
+        {/* Nav Links */}
+        <div className="hidden md:flex gap-6">
+          {[
+            { name: "About", href: "#about", delay: 1 },
+            { name: "Skills", href: "#skills", delay: 1.5 },
+            { name: "Projects", href: "#projects", delay: 2 },
+            { name: "Contact", href: "#contact", delay: 2.5 },
+          ].map((link, i) => (
+            <motion.a
+              key={i}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: link.delay }}
+              href={link.href}
+              className="text-slate-300 hover:text-white transition-colors text-sm font-medium"
+            >
+              {link.name}
+            </motion.a>
+          ))}
         </div>
 
-        {/* RIGHT SIDE: SPLINE MODEL */}
-        <div className="spline-model relative flex-1 w-full h-[400px] md:h-[600px]">
-          {/* 🌟 GOLDEN LIGHT EFFECT */}
-          <div
-            className="absolute -top-10 -right-10 w-[300px] h-[300px] rounded-full 
-            bg-gradient-to-bl from-yellow-300 via-amber-400 to-transparent 
-            opacity-40 blur-3xl animate-pulse"
-          />
-
-          {/* ✨ Optional Sine-wave shimmer */}
-          <div
-            className="absolute -top-16 right-0 w-[400px] h-[100px] 
-            bg-[radial-gradient(ellipse_at_top_right,_rgba(255,215,0,0.4),_transparent_70%)]
-            blur-[60px] opacity-70"
-          />
-
-          <Spline
-            data-aos="fade-zoom-in"
-            data-aos-easing="ease-in-back"
-            data-aos-delay="300"
-            data-aos-offset="0"
-            data-aos-duration="3000"
-            scene="https://prod.spline.design/xT2D5-PXRdX9r7gu/scene.splinecode"
-          />
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center">
+          <button
+            id="menu-btn"
+            className="text-slate-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-md"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
         </div>
       </div>
+    </div>
+  </nav>
 
-      {/* BACKGROUND GLOW */}
-      
-      {/* ✨ Golden Spotlight Effect */}
-<motion.div
-  className="absolute -inset-4 -z-10"
-  animate={{
-    opacity: [0.4, 0.6, 0.4],
-    rotate: [0, 2, -2, 0],
-  }}
-  transition={{
-    duration: 6,
-    repeat: Infinity,
-    ease: "easeInOut",
-  }}
->
-  {/* Spotlight cone */}
-  <div
-    className="absolute -top-32 right-0 w-[500px] h-[900px] 
-    bg-[radial-gradient(ellipse_at_top_right,_rgba(255,215,0,0.35)_0%,_rgba(255,200,100,0.15)_40%,_transparent_80%)]
-    blur-3xl rotate-[20deg]"
-  />
-
-  {/* Ambient soft reflection */}
-  <div
-    className="absolute top-0 right-10 w-[300px] h-[300px]
-    bg-[radial-gradient(circle,_rgba(255,215,150,0.4),_transparent_70%)]
-    blur-[100px] opacity-50"
-  />
-</motion.div>
-
-    </motion.div>
-  </div>
-</section>
-
-
-      <section id="about" className="relative bg-slate-950 py-32 px-4">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              About Me
-            </h2>
-            <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              Passionate full stack developer with 2+ years of experience in building modern web applications.
-              Specialized in the MERN stack with a focus on creating performant, scalable, and user-friendly solutions.
-              I love turning complex problems into simple, beautiful, and intuitive designs.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, x: -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 rounded-2xl blur-2xl" />
-                <div className="relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-8">
-                  <Code2 className="w-12 h-12 text-emerald-400 mb-6" />
-                  <h3 className="text-2xl font-bold text-white mb-4">What I Do</h3>
-                  <ul className="space-y-3 text-slate-300">
-                    <li className="flex items-start gap-3">
-                      <span className="text-emerald-400 mt-1">▹</span>
-                      <span>Build responsive and interactive web applications</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-emerald-400 mt-1">▹</span>
-                      <span>Design and develop RESTful APIs and microservices</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-emerald-400 mt-1">▹</span>
-                      <span>Database design and optimization</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-emerald-400 mt-1">▹</span>
-                      <span>Deploy and maintain cloud-based applications</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-l from-cyan-500/20 to-blue-500/20 rounded-2xl blur-2xl" />
-                <div className="relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-8">
-                  <Layers className="w-12 h-12 text-cyan-400 mb-6" />
-                  <h3 className="text-2xl font-bold text-white mb-4">My Approach</h3>
-                  <p className="text-slate-300 leading-relaxed mb-4">
-                    I believe in writing clean, maintainable code and following best practices.
-                    My development process emphasizes:
-                  </p>
-                  <ul className="space-y-3 text-slate-300">
-                    <li className="flex items-start gap-3">
-                      <span className="text-cyan-400 mt-1">▹</span>
-                      <span>User-centric design and development</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-cyan-400 mt-1">▹</span>
-                      <span>Performance optimization and scalability</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-cyan-400 mt-1">▹</span>
-                      <span>Continuous learning and improvement</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+  {/* 🌟 HERO SECTION */}
+  <section className="min-h-screen flex flex-col justify-center items-center pt-20 md:pt-24 relative overflow-hidden">
+    <div className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto px-6 md:px-8 gap-10 w-full">
+      {/* LEFT TEXT */}
+      <div className="flex-1 text-center md:text-left">
+        <div className="inline-block mb-4">
+          <span className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-sm font-medium">
+            Available for Freelance
+          </span>
         </div>
-      </section>
 
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+          Anshul Gaur
+          <span className="block text-2xl sm:text-3xl md:text-4xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent mt-4">
+            Full Stack Developer
+          </span>
+        </h1>
+
+        <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-md mx-auto md:mx-0 mb-10">
+          2+ years of experience building scalable web applications with MERN Stack
+        </p>
+      </div>
+
+      {/* RIGHT MODEL */}
+      <div className="flex-1 w-full flex justify-center relative h-[300px] sm:h-[400px] md:h-[500px]">
+        <div
+ className="absolute -top-32 -right-20 w-[300px] h-[600px] rounded-full 
+  bg-gradient-to-bl from-yellow-300 via-amber-400 to-transparent 
+  opacity-40 blur-[150px] animate-pulse"
+/>
+
+        <Spline
+          scene="https://prod.spline.design/xT2D5-PXRdX9r7gu/scene.splinecode"
+          className="w-full h-full"
+        />
+      </div>
+    </div>
+  </section>
+
+  {/* 🌟 ABOUT SECTION */}
+  <section id="about" className="bg-slate-950 py-20 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-6xl mx-auto text-center">
+      <motion.h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+        About Me
+      </motion.h2>
+      <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-12">
+        Passionate full stack developer with 2+ years of experience in building modern web applications.
+        Specialized in the MERN stack with a focus on creating performant, scalable, and user-friendly solutions.
+      </p>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* LEFT CARD */}
+        <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 backdrop-blur-sm">
+          <h3 className="text-2xl font-bold text-white mb-4">What I Do</h3>
+          <ul className="space-y-2 text-slate-300 text-sm sm:text-base">
+            <li>▹ Build responsive and interactive web apps</li>
+            <li>▹ Design RESTful APIs & microservices</li>
+            <li>▹ Database design & optimization</li>
+            <li>▹ Deploy and maintain cloud-based apps</li>
+          </ul>
+        </div>
+
+        {/* RIGHT CARD */}
+        <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 backdrop-blur-sm">
+          <h3 className="text-2xl font-bold text-white mb-4">My Approach</h3>
+          <ul className="space-y-2 text-slate-300 text-sm sm:text-base">
+            <li>▹ User-centric design and development</li>
+            <li>▹ Performance optimization and scalability</li>
+            <li>▹ Continuous learning and improvement</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
       <section id="skills" className="relative bg-gradient-to-b from-slate-950 to-slate-900 py-32 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
