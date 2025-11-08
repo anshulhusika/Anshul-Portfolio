@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown, Code2, Database, Server, Layers, Github, Linkedin, Mail, ExternalLink, Terminal, Palette } from 'lucide-react';
 import Spline from '@splinetool/react-spline';
+import { Menu, X } from "lucide-react";
 'use client';
 
 
@@ -9,7 +10,7 @@ function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-
+ const [isOpen, setIsOpen] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -79,59 +80,50 @@ function App() {
    <div ref={containerRef} className="bg-slate-950">
   {/* 🌟 NAVBAR */}
   <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800/50">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex justify-between items-center h-16">
-        {/* Logo */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-xl font-bold text-white"
-        >
-          Anshul Gaur
-        </motion.div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          
+          {/* Logo */}
+          <motion.div
+  initial={{ opacity: 0, x: -30 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.6 }}
+  className="text-xl font-bold bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 bg-clip-text text-transparent"
+>
+  Anshul Gaur
+</motion.div>
 
-        {/* Nav Links */}
-        <div className="hidden md:flex gap-6">
-          {[
-            { name: "About", href: "#about", delay: 1 },
-            { name: "Skills", href: "#skills", delay: 1.5 },
-            { name: "Projects", href: "#projects", delay: 2 },
-            { name: "Contact", href: "#contact", delay: 2.5 },
-          ].map((link, i) => (
-            <motion.a
-              key={i}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: link.delay }}
-              href={link.href}
-              className="text-slate-300 hover:text-white transition-colors text-sm font-medium"
-            >
-              {link.name}
-            </motion.a>
-          ))}
-        </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
-          <button
-            id="menu-btn"
-            className="text-slate-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-md"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-8 text-white">
+            <a href="#" className="hover:text-yellow-400">Home</a>
+            <a href="#" className="hover:text-yellow-400">About</a>
+            <a href="#" className="hover:text-yellow-400">Services</a>
+            <a href="#" className="hover:text-yellow-400">Contact</a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-white focus:outline-none"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
+
+      {/* Mobile Dropdown Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-slate-900/90 backdrop-blur-md border-t border-slate-800/50 px-4 py-4 space-y-3 text-white">
+          <a href="#" className="block hover:text-yellow-400">Home</a>
+          <a href="#" className="block hover:text-yellow-400">About</a>
+          <a href="#" className="block hover:text-yellow-400">Services</a>
+          <a href="#" className="block hover:text-yellow-400">Contact</a>
+        </div>
+      )}
+    </nav>
 
   {/* 🌟 HERO SECTION */}
   <section className="min-h-screen flex flex-col justify-center items-center pt-20 md:pt-24 relative overflow-hidden">
