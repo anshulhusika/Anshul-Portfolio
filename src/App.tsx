@@ -1,17 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform,AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown, Code2, Database, Server, Layers, Github, Linkedin, Mail, ExternalLink, Terminal, Palette } from 'lucide-react';
 import Spline from '@splinetool/react-spline';
 'use client';
-import { Menu, X } from "lucide-react"; 
+
 
 function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-const [menuOpen, setMenuOpen] = useState(false);
-
-  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -80,75 +77,53 @@ const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div ref={containerRef} className="bg-slate-950">
-         <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* LOGO */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-xl font-bold text-white"
-          >
-            Anshul Gaur
-          </motion.div>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+           <motion.div
+  initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    duration: 0.8,  // = 800ms
+    delay:0.4,
+    
+  }}
+  className="text-xl font-bold text-white"
+>
+  Anshul Gaur
+</motion.div>
+<div               className="flex gap-6"
+>
 
-          {/* DESKTOP LINKS */}
-          <div className="hidden md:flex gap-6">
-            {["About", "Skills", "Projects", "Contact"].map((link, i) => (
-              <motion.a
-                key={link}
-                href={`#${link.toLowerCase()}`}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 + i * 0.5 }}
-                className="text-slate-300 hover:text-white transition-colors"
-              >
-                {link}
-              </motion.a>
-            ))}
+            
+              <motion.a    initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    duration: 1,  // = 800ms
+    
+  }} href="#about" className="ancor-class text-slate-300 hover:text-white transition-colors">About</motion.a>
+              <motion.a    initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    duration: 1.5,  // = 800ms
+    
+  }} href="#skills" className="ancor-class text-slate-300 hover:text-white transition-colors">Skills</motion.a>
+              <motion.a    initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    duration: 2,  // = 800ms
+    
+  }} href="#projects" className="ancor-class text-slate-300 hover:text-white transition-colors">Projects</motion.a>
+              <motion.a    initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    duration: 2.5,  // = 800ms
+    
+  }} href="#contact" className="ancor-class text-slate-300 hover:text-white transition-colors">Contact</motion.a>
           </div>
-
-          {/* MOBILE MENU BUTTON */}
-          <button
-            onClick={toggleMenu}
-            className="md:hidden text-slate-300 hover:text-white transition"
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
         </div>
-      </div>
-
-      {/* MOBILE MENU */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-slate-950/95 backdrop-blur-xl border-t border-slate-800/40"
-          >
-            <div className="flex flex-col items-center py-4 space-y-4">
-              {["About", "Skills", "Projects", "Contact"].map((link, i) => (
-                <motion.a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  onClick={() => setMenuOpen(false)}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: i * 0.1 }}
-                  className="text-slate-300 hover:text-white text-lg transition-colors"
-                >
-                  {link}
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+</div>
+      </nav>
 <section className="h-[300vh] relative">
   <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
     <motion.div
@@ -164,22 +139,19 @@ const [menuOpen, setMenuOpen] = useState(false);
       <div className="flex flex-col md:flex-row items-center justify-between gap-10">
         {/* LEFT SIDE: TEXT */}
         <div className="flex-1 text-center md:text-left">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="inline-block mb-4"
-          >
-            <span
-             data-aos="fade-zoom-in"
+          <div
+                 data-aos="fade-zoom-in"
             data-aos-easing="ease-in-back"
             data-aos-delay="300"
             data-aos-offset="0"
             data-aos-duration="3000"
-             className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-sm font-medium">
+            
+            className="inline-block mb-4"
+          >
+            <span className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-sm font-medium">
               Available for Freelance
             </span>
-          </motion.div>
+          </div>
 
           <h1
             data-aos="fade-zoom-in"
@@ -208,7 +180,7 @@ const [menuOpen, setMenuOpen] = useState(false);
         </div>
 
         {/* RIGHT SIDE: SPLINE MODEL */}
-        <div className="relative flex-1 w-full h-[400px] md:h-[600px]">
+        <div className="spline-model relative flex-1 w-full h-[400px] md:h-[600px]">
           {/* 🌟 GOLDEN LIGHT EFFECT */}
           <div
             className="absolute -top-10 -right-10 w-[300px] h-[300px] rounded-full 
