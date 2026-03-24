@@ -19,7 +19,7 @@
   /* .ancor-class{
     display: none;
   } */
-  .spline-model canvas {
+  .spline-model {
     transform: scale(0.5);
     transform-origin: center;
   }

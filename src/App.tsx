@@ -1,252 +1,223 @@
-import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ChevronDown, Code2, Database, Server, Layers, Github, Linkedin, Mail, ExternalLink, Terminal, Palette } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { 
+  Github, Linkedin, Mail, ExternalLink, Terminal, 
+  Palette, Server, Database, Menu, X, ChevronRight 
+} from 'lucide-react';
 import Spline from '@splinetool/react-spline';
-import { Menu, X } from "lucide-react";
-'use client';
 
-
-function App() {
+export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
- const [isOpen, setIsOpen] = useState(false);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  const [isOpen, setIsOpen] = useState(false);
 
-  const videoScale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [1, 1.2, 0.8, 1]);
-  const videoRotate = useTransform(scrollYProgress, [0, 0.5, 1], [0, 5, 0]);
-  const videoY = useTransform(scrollYProgress, [0, 0.5, 1], [0, -100, -300]);
-  const videoOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [1, 0.9, 0.7, 0.5]);
+  // Data Arrays
+  const navLinks = [
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Skills", href: "#skills" },
+    { name: "Projects", href: "#projects" },
+    { name: "Contact", href: "#contact" }
+  ];
 
-  const textOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 0.5, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        console.log('Video autoplay prevented');
-      });
-    }
-  }, [isVideoLoaded]);
+  const skills = [
+    { category: "Frontend", icon: Palette, tech: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion"] },
+    { category: "Backend", icon: Server, tech: ["Node.js", "Express", "REST APIs", "WebSockets", "JWT"] },
+    { category: "Database", icon: Database, tech: ["MongoDB", "PostgreSQL", "MySQL", "Prisma", "Mongoose"] },
+    { category: "DevOps", icon: Terminal, tech: ["Docker", "AWS", "CI/CD", "Git", "Linux", "Nginx"] }
+  ];
 
   const projects = [
     {
       title: "E-Commerce Platform",
-      description: "Full-stack MERN application with payment integration, real-time inventory management, and admin dashboard",
+      description: "Full-stack MERN application with real-time inventory and Stripe integration.",
       tech: ["MongoDB", "Express", "React", "Node.js"],
+      link: "https://your-demo-link.com",
       image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
-      title: "Social Media Dashboard",
-      description: "Real-time analytics platform with WebSocket integration, data visualization, and user engagement metrics",
-      tech: ["React", "Node.js", "Socket.io", "Chart.js"],
+      title: "Social Dashboard",
+      description: "Real-time analytics platform with WebSocket data visualization.",
+      tech: ["React", "Socket.io", "Chart.js", "Tailwind"],
+      link: "https://your-demo-link.com",
       image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
-      title: "Task Management System",
-      description: "Collaborative project management tool with drag-and-drop interface, team collaboration, and progress tracking",
-      tech: ["React", "Express", "MongoDB", "JWT"],
+      title: "Task Management",
+      description: "Collaborative tool with drag-and-drop and progress tracking.",
+      tech: ["React", "Express", "MongoDB", "Auth0"],
+      link: "https://your-demo-link.com",
       image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800"
     }
   ];
 
-  const skills = [
-    {
-      category: "Frontend",
-      icon: Palette,
-      technologies: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Redux", "Framer Motion"]
-    },
-    {
-      category: "Backend",
-      icon: Server,
-      technologies: ["Node.js", "Express.js", "REST APIs", "GraphQL", "JWT Auth", "WebSockets"]
-    },
-    {
-      category: "Database",
-      icon: Database,
-      technologies: ["MongoDB", "PostgreSQL", "MySQL", "Redis", "Mongoose", "Prisma"]
-    },
-    {
-      category: "DevOps & Tools",
-      icon: Terminal,
-      technologies: ["Git", "Docker", "AWS", "CI/CD", "Nginx", "Linux"]
-    }
-  ];
-
   return (
-   <div ref={containerRef} className="bg-slate-950">
-  {/* 🌟 NAVBAR */}
-  <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          
-          {/* Logo */}
-          <motion.div
-  initial={{ opacity: 0, x: -30 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ duration: 0.6 }}
-  className="text-xl font-bold bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 bg-clip-text text-transparent"
->
-  Anshul Gaur
-</motion.div>
-
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8 text-white">
-            <a href="#" className="hover:text-yellow-400">Home</a>
-            <a href="#" className="hover:text-yellow-400">About</a>
-            <a href="#" className="hover:text-yellow-400">Services</a>
-            <a href="#" className="hover:text-yellow-400">Contact</a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-white focus:outline-none"
-            >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Dropdown Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-slate-900/90 backdrop-blur-md border-t border-slate-800/50 px-4 py-4 space-y-3 text-white">
-          <a href="#" className="block hover:text-yellow-400">Home</a>
-          <a href="#" className="block hover:text-yellow-400">About</a>
-          <a href="#" className="block hover:text-yellow-400">Services</a>
-          <a href="#" className="block hover:text-yellow-400">Contact</a>
-        </div>
-      )}
-    </nav>
-
-  {/* 🌟 HERO SECTION */}
-  <section className="min-h-screen flex flex-col justify-center items-center pt-20 md:pt-24 relative overflow-hidden">
-    <div className="flex flex-col-reverse md:flex-row items-center justify-between max-w-7xl mx-auto px-6 md:px-8 gap-10 w-full">
-      {/* LEFT TEXT */}
-      <div className="flex-1 text-center md:text-left">
-        <div className="inline-block mb-4">
-          <span className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-sm font-medium">
-            Available for Freelance
-          </span>
-        </div>
-
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-          Anshul Gaur
-          <span className="block text-2xl sm:text-3xl md:text-4xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent mt-4">
-            Full Stack Developer
-          </span>
-        </h1>
-
-        <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-md mx-auto md:mx-0 mb-10">
-          2+ years of experience building scalable web applications with MERN Stack
-        </p>
-      </div>
-
-      {/* RIGHT MODEL */}
-      <div className="flex-1 w-full flex justify-center relative h-[300px] sm:h-[400px] md:h-[500px]">
-        <div
- className="absolute -top-32 -right-20 w-[300px] h-[600px] rounded-full 
-  bg-gradient-to-bl from-yellow-300 via-amber-400 to-transparent 
-  opacity-40 blur-[150px] animate-pulse"
-/>
-
-        <Spline
-          scene="https://prod.spline.design/xT2D5-PXRdX9r7gu/scene.splinecode"
-          className="w-full h-full"
-        />
-      </div>
-    </div>
-  </section>
-
-  {/* 🌟 ABOUT SECTION */}
-  <section id="about" className="bg-slate-950 py-20 px-4 sm:px-6 lg:px-8">
-    <div className="max-w-6xl mx-auto text-center">
-      <motion.h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-        About Me
-      </motion.h2>
-      <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-12">
-        Passionate full stack developer with 2+ years of experience in building modern web applications.
-        Specialized in the MERN stack with a focus on creating performant, scalable, and user-friendly solutions.
-      </p>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* LEFT CARD */}
-        <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 backdrop-blur-sm">
-          <h3 className="text-2xl font-bold text-white mb-4">What I Do</h3>
-          <ul className="space-y-2 text-slate-300 text-sm sm:text-base">
-            <li>▹ Build responsive and interactive web apps</li>
-            <li>▹ Design RESTful APIs & microservices</li>
-            <li>▹ Database design & optimization</li>
-            <li>▹ Deploy and maintain cloud-based apps</li>
-          </ul>
-        </div>
-
-        {/* RIGHT CARD */}
-        <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 backdrop-blur-sm">
-          <h3 className="text-2xl font-bold text-white mb-4">My Approach</h3>
-          <ul className="space-y-2 text-slate-300 text-sm sm:text-base">
-            <li>▹ User-centric design and development</li>
-            <li>▹ Performance optimization and scalability</li>
-            <li>▹ Continuous learning and improvement</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-      <section id="skills" className="relative bg-gradient-to-b from-slate-950 to-slate-900 py-32 px-4">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
+    <div ref={containerRef} className="bg-slate-950 text-slate-300 selection:bg-emerald-500/30 overflow-x-hidden font-sans">
+      
+      {/* 🌟 STICKY NAVIGATION */}
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-slate-950/70 backdrop-blur-xl border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-2xl font-black bg-gradient-to-r from-yellow-300 to-orange-500 bg-clip-text text-transparent"
           >
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Technical Skills
-            </h2>
-            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-              Comprehensive expertise across the full development stack
-            </p>
+            ANSHUL.
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {skills.map((skill, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.02 }}
-                className="relative group"
-              >
-                <div className="relative bg-slate-900/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-800 hover:border-slate-700 transition-all">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center">
-                      <skill.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white">
-                      {skill.category}
-                    </h3>
-                  </div>
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a key={link.name} href={link.href} className="text-sm font-medium hover:text-emerald-400 transition-colors">
+                {link.name}
+              </a>
+            ))}
+          </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    {skill.technologies.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-slate-300 text-sm font-medium hover:bg-slate-800 hover:border-emerald-500/50 transition-all"
-                      >
-                        {tech}
+          {/* Mobile Toggle */}
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white">
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div 
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="md:hidden bg-slate-900 border-b border-slate-800"
+            >
+              <div className="flex flex-col p-6 gap-6">
+                {navLinks.map((link) => (
+                  <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-xl font-bold">
+                    {link.name}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+
+      {/* 🌟 HERO SECTION */}
+      <section id="home" className="min-h-screen relative flex items-center pt-20">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center w-full">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="z-10 text-center lg:text-left"
+          >
+            <span className="px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold tracking-widest uppercase mb-6 inline-block border border-emerald-500/20">
+              Open for Opportunities
+            </span>
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+              Crafting <span className="text-emerald-400">Digital</span> Experiences
+            </h1>
+            <p className="text-slate-400 text-lg md:text-xl mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+              Full Stack Developer specializing in building high-performance MERN applications with 2+ years of experience.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+              <a href="#projects" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-2xl transition-all shadow-lg shadow-emerald-500/20">
+                View My Work
+              </a>
+              <a href="#contact" className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl transition-all">
+                Let's Talk
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Spline Model Wrapper */}
+          <div className="relative h-[400px] md:h-[600px] w-full group">
+            <div className="absolute inset-0 bg-emerald-500/10 blur-[120px] rounded-full animate-pulse" />
+            <Spline 
+              scene="https://prod.spline.design/xT2D5-PXRdX9r7gu/scene.splinecode" 
+              className="w-full h-full"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* 🌟 SKILLS SECTION */}
+      <section id="skills" className="py-32 px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Technical Arsenal</h2>
+          <p className="text-slate-500 mb-16">The tools and technologies I use to bring ideas to life.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {skills.map((skill, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -10 }}
+                className="p-8 bg-slate-900/40 border border-white/5 rounded-3xl backdrop-blur-sm hover:border-emerald-500/40 transition-all text-left"
+              >
+                <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6">
+                  <skill.icon className="text-emerald-400" size={24} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4">{skill.category}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {skill.tech.map(t => (
+                    <span key={t} className="text-xs bg-slate-800/50 text-slate-400 px-3 py-1.5 rounded-lg border border-white/5">{t}</span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 🌟 PROJECTS SECTION (With Iframe Support) */}
+      <section id="projects" className="py-32 px-6 bg-slate-900/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 text-center md:text-left">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Selected Works</h2>
+              <p className="text-slate-500">A collection of projects that define my journey.</p>
+            </div>
+            <a href="https://github.com/anshulhusika" target="_blank" className="text-emerald-400 font-bold flex items-center gap-2 group">
+              View All on GitHub <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="group bg-slate-900/50 border border-white/5 rounded-3xl overflow-hidden hover:border-emerald-500/30 transition-all"
+              >
+                {/* Media Container */}
+                <div className="h-56 overflow-hidden relative">
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                  />
+                  <div className="absolute inset-0 bg-slate-950/40 group-hover:bg-transparent transition-colors" />
+                </div>
+
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-white mb-3">{project.title}</h3>
+                  <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {project.tech.map(t => (
+                      <span key={t} className="text-[10px] font-bold tracking-widest uppercase text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded">
+                        {t}
                       </span>
                     ))}
                   </div>
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-white font-bold hover:text-emerald-400 transition-colors"
+                  >
+                    Launch Project <ExternalLink size={16} />
+                  </a>
                 </div>
               </motion.div>
             ))}
@@ -254,147 +225,35 @@ function App() {
         </div>
       </section>
 
-      <section id="projects" className="relative bg-slate-900 py-32 px-4">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Featured Projects
-            </h2>
-            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-              A selection of projects showcasing my development expertise
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-                className="relative group"
-              >
-                <div className="relative bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-slate-700 transition-all">
-                  <div className="relative h-48 overflow-hidden">
-                 {/* <iframe src="https://ytconverterr.netlify.app" title="W3Schools Free Online Web Tutorials"></iframe> */}
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent" />
-                  </div>
-
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-3">
-                      {project.title}
-                    </h3>
-                    <p className="text-slate-400 mb-4 leading-relaxed">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tech.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-xs font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    <button className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors font-medium">
-                      View Project <ExternalLink className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="relative bg-gradient-to-b from-slate-900 to-slate-950 py-32 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-8">
-              Let's Work Together
-            </h2>
-            <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
-              I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-6 mb-12">
-              <motion.a
-                href="mailto:anshulhusika@gmail.com"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-600 to-cyan-600 text-white font-semibold rounded-full hover:from-emerald-700 hover:to-cyan-700 transition-all shadow-lg shadow-emerald-500/25"
-              >
-                <Mail className="w-5 h-5" />
-                Email Me
-              </motion.a>
-              <motion.a
-                href="https://github.com/anshulhusika/"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-3 px-8 py-4 bg-slate-800 border border-slate-700 text-white font-semibold rounded-full hover:bg-slate-700 hover:border-slate-600 transition-all"
-              >
-                <Github className="w-5 h-5" />
-                GitHub
-              </motion.a>
-              <motion.a
-                href="https://www.linkedin.com/in/anshul-gaur-773914250/"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-3 px-8 py-4 bg-slate-800 border border-slate-700 text-white font-semibold rounded-full hover:bg-slate-700 hover:border-slate-600 transition-all"
-              >
-                <Linkedin className="w-5 h-5" />
-                LinkedIn
-              </motion.a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <footer className="bg-slate-950 py-12 px-4 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-500">
-              © 2024 Anshul Gaur. All rights reserved.
-            </p>
-            <div className="flex gap-6">
-              <a href="https://github.com" className="text-slate-500 hover:text-white transition-colors">
-                <Github className="w-5 h-5" />
+      {/* 🌟 CONTACT SECTION */}
+      <section id="contact" className="py-32 px-6 relative">
+        <div className="max-w-4xl mx-auto bg-gradient-to-br from-slate-900 to-slate-950 border border-white/5 rounded-[3rem] p-8 md:p-16 text-center overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[100px]" />
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">Ready to start a project?</h2>
+          <p className="text-slate-400 text-lg mb-12">I'm currently available for new projects and collaborations.</p>
+          
+          <div className="flex flex-wrap justify-center gap-4">
+            <a href="mailto:anshulhusika@gmail.com" className="flex items-center gap-3 px-8 py-4 bg-white text-slate-950 font-bold rounded-2xl hover:bg-emerald-400 transition-all">
+              <Mail size={20} /> Email Me
+            </a>
+            <div className="flex gap-4">
+              <a href="https://linkedin.com" target="_blank" className="p-4 bg-slate-800 text-white rounded-2xl hover:bg-slate-700 transition-all">
+                <Linkedin size={24} />
               </a>
-              <a href="https://linkedin.com" className="text-slate-500 hover:text-white transition-colors">
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a href="mailto:anshulgaur@example.com" className="text-slate-500 hover:text-white transition-colors">
-                <Mail className="w-5 h-5" />
+              <a href="https://github.com" target="_blank" className="p-4 bg-slate-800 text-white rounded-2xl hover:bg-slate-700 transition-all">
+                <Github size={24} />
               </a>
             </div>
           </div>
         </div>
+      </section>
+
+      {/* 🌟 FOOTER */}
+      <footer className="py-12 border-t border-white/5 text-center px-6">
+        <p className="text-slate-500 text-sm">
+          © {new Date().getFullYear()} Anshul Gaur. Built with React & Tailwind.
+        </p>
       </footer>
     </div>
   );
 }
-
-export default App;
