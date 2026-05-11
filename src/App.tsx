@@ -42,9 +42,16 @@ export default function App() {
       image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
-      title: "Task Management",
-      description: "Collaborative tool with drag-and-drop and progress tracking.",
-      tech: ["React", "Express", "MongoDB", "Auth0"],
+      title: "Aquasaur",
+      description: "Worked with next.js with an water bottle packeging and marketing company.",
+      tech: ["Next.js", "Express", "MongoDB", "Auth0"],
+      link: "https://your-demo-link.com",
+      image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800"
+    }
+     {
+      title: "FileShare Pro",
+      description: "Worked on koltlin with a local wifi data shareing technology.",
+      tech: ["Kotlin", "Express", "Javascript"],
       link: "https://your-demo-link.com",
       image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800"
     }
