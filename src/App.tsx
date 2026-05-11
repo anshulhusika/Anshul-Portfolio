@@ -35,7 +35,7 @@ export default function App() {
       image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
-      title: "Production MOnitoring Dashboard",
+      title: "Production Monitoring Dashboard",
       description: "Real-time analytics platform with WebSocket data visualization.",
       tech: ["React", "Socket.io", "Chart.js", "Tailwind"],
       link: "https://www.leafnet.cc/",
