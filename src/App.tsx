@@ -31,14 +31,14 @@ export default function App() {
       title: "E-Commerce Platform",
       description: "Full-stack MERN application with real-time inventory and Stripe integration.",
       tech: ["MongoDB", "Express", "React", "Node.js"],
-      link: "https://your-demo-link.com",
+      link: "https://shop.anshulhusika.in/",
       image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
-      title: "Social Dashboard",
+      title: "Production MOnitoring Dashboard",
       description: "Real-time analytics platform with WebSocket data visualization.",
       tech: ["React", "Socket.io", "Chart.js", "Tailwind"],
-      link: "https://your-demo-link.com",
+      link: "https://www.leafnet.cc/",
       image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
